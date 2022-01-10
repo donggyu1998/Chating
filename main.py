@@ -1,5 +1,6 @@
 import time
 import menu
+import os
 
 from enum import Enum 
 
@@ -34,21 +35,18 @@ user = None
  
 def main():
     while True:
+        os.system('cls')
         displayMenu()
         time.sleep(0.5)
 
 if __name__ == "__main__":
     main()
-    
-    
-"""
 
-Login Register 
-chating room list
-- chating 
+    """
+1대1 채팅도 결국 그룹톡에서는 2명이면 1대1 채팅이다. 
+collection 이 그룹톡에 대한 것이 있어야하며, 지금 구조로는 이상함
 
-model
-    user
-    msg
-    
-"""
+1. 구조 같은 부분에서 우ㅣ
+2. 기획이 잘 못된건 logout, 등 번호가 바뀌고 chat str이 들어가는게 이상함
+
+    """

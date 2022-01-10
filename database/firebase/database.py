@@ -33,9 +33,22 @@ class Database:
     def update():
         pass
     
-    def find():
-        pass
-    
+    def findUser(self, user_id):
+        
+        ret = None
+        
+        ref = self._firebase_db.collection(u'user')
+        snapshot = ref.where(u'_id', u'==', user_id).get()
+        items = list(snapshot)
+        
+        if len(items) <= 0:
+            print("Error : find not opponent id...")
+            
+        else:
+            ret = items
+            
+        return ret
+       
     def login(self, id, pw):
         
         ret = None

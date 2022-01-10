@@ -1,4 +1,6 @@
+import os
 from database.dbmanager import DBManager
+from database.model.chating import Chating
 
 def menuPageLogin():
     print ("************ MENU Login ************")
@@ -44,27 +46,71 @@ def menuPageChating(user):
     
     print ("< UserInfo : {} >".format(user._id))
     print ("*********** Chating List ***********")
-    for number in range(1, 4):
-        print ("{}) room ({})".format(number, number))
+    loadChatingRoom(user)
     print ("9) logout")
     print ("************************************")
-    selected = int(input("Select : "))
+    selected = input("Select : ")
     
     ret = True
     
-    if selected == 1:
-        user.chating_room
-
-# 유저가 채팅방 접속 시 이 채팅방 기록을 가지고 있는지 체크 ? 
-#   
-
+    if selected == 'chat':
+    
+        print("Info : Pls input opponent id... ")
+        user_id = input("ID : ")
+        createChatingRoom(user, user_id)
+        
     if selected == 9:
          user = None
          return logout()
      
     else:
-        print ("Pls select valid item...")
+        print ("Error : Pls select valid item...")
     
+    return ret
+
+def loadChatingRoom(user):
+    
+    if len(user.chating) <= 0:
+        print ("Info : Chating room not exist.")
+        print ("Info : If you want to create chating room, input 'chat'")
+            
+    else:
+        users = list(user.chating.keys())
+        print("If you want to create chating room, input 'chat'")
+        
+        for i in range(len(users)):
+            user = users[i]
+            print("{}) userName : {}".format(i, user))
+            
+            #selected = int(input("select : "))
+            
+            #if selected < len(users):
+            #    pass
+            
+            #else:
+            #    print ("Error : Index out of range exception. ")
+    
+def createChatingRoom(user, user_id):
+    
+    dbmanager = DBManager.getInstance()
+    ret = dbmanager.findUser(user_id)
+    
+    if ret is not None:
+        items = list(ret)
+        user_id = items[0].get('_id')
+        chating = Chating()
+        os.system('cls')
+        print("Info : Pls send msg or 'exit'")
+        while True:
+            input_text = input("input : ")
+            print ("exit) chating exit")
+            chating.setId(user_id)
+            chating.setMsg(input_text)
+            user.setChating(user_id, chating)
+            
+            if input_text == "exit":
+                return None
+        
     return ret
 
 def logout():
@@ -72,3 +118,8 @@ def logout():
     
     ret = False
     return ret
+
+"""
+1. 
+    
+"""

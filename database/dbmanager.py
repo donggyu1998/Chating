@@ -22,8 +22,9 @@ class DBManager:
     def delete():
         pass
     
-    def find():
-        pass
+    def findUser(self, user_id):
+        ret = self._db.findUser(user_id)
+        return ret
     
     def update():
         pass
